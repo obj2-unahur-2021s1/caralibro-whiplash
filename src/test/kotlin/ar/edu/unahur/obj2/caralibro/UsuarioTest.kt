@@ -13,19 +13,19 @@ UsuarioTest : DescribeSpec({
   describe("Caralibro") {
     val saludoCumpleanios = Texto("Felicidades Pepito, que los cumplas muy feliz")
     val fotoEnCuzco = Foto(768, 1024)
-    val videoEnElSur = Video()
+    val fotoEnEsquel = Foto(800,1000)
+    val videoEnElSur = Video(videoSd(150))
+    val videoEnElNorte = Video(videoHd720p(100))
+    val videoEnElOeste = Video(videoHd1080p(120))
     /*
     videoEnElSur.setCalidad(videoSd)
     videoEnElSur.setTiempo(seg)
     videoEnElSur.espacioQueOcupa()
     videoEnElSur.setCalidad(videoHd1080p)
     videoEnElSur.espacioQueOcupa()
-
      */
     //videoEnElSur.setCalidad(videoSd(150))
-    val videoEnElNorte = Video()
     //videoEnElNorte.setCalidad(videoHd720p(100))
-    val videoEnElOeste = Video()
     //videoEnElOeste.setCalidad(videoHd1080p(120))
     val fotoEnAconcagua = Foto(400,600)
 
@@ -34,6 +34,13 @@ UsuarioTest : DescribeSpec({
         it("ocupa ancho * alto * compresion bytes") {
           fotoEnCuzco.espacioQueOcupa().shouldBe(550503)
         }
+        it("ocupa ancho * alto * compresion bytes de foto en esquel"){
+          fotoEnEsquel.espacioQueOcupa().shouldBe(560000)
+        }
+        it("ocupa ancho * alto * compresion bytes de foto en aconcagua"){
+          fotoEnAconcagua.espacioQueOcupa().shouldBe(168000)
+        }
+
       }
 
       describe("de tipo texto") {
@@ -53,7 +60,7 @@ UsuarioTest : DescribeSpec({
           videoEnElOeste.espacioQueOcupa().shouldBe(720)
         }
         it("cambia la calidad de video de una publicacion"){
-          videoEnElNorte.setCalidad(videoSd)
+          //videoEnElNorte.setCalidad(videoSd)
         }
       }
 
@@ -64,8 +71,10 @@ UsuarioTest : DescribeSpec({
       it("puede calcular el espacio que ocupan sus publicaciones") {
         val juana = Usuario()
         juana.agregarPublicacion(fotoEnCuzco)
+        juana.agregarPublicacion(fotoEnAconcagua)
+        juana.agregarPublicacion(fotoEnEsquel)
         juana.agregarPublicacion(saludoCumpleanios)
-        juana.espacioDePublicaciones().shouldBe(550548)
+        juana.espacioDePublicaciones().shouldBe(1278548)
       }
 
     describe("Probamos como los usuarios dan like"){
@@ -83,17 +92,9 @@ UsuarioTest : DescribeSpec({
       }
 
       it("usuario no puede dar like a una publicacion porque ya dio like"){
-
         shouldThrowAny { jose.darMegusta(fotoEnAconcagua) }
-
       }
-
     }
-
-
-
-
-
 
     }
   }

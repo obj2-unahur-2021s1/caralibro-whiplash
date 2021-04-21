@@ -4,6 +4,8 @@ import kotlin.math.ceil
 abstract class Publicacion {
   var cantidadDeMeGustaDeLaPublicacion : Int = 0
   var usuariosQueDieronLikeALaPublicacion = mutableListOf<Usuario>()
+  lateinit var permiso : Permiso
+
 
   abstract fun espacioQueOcupa(): Int
 
@@ -30,16 +32,17 @@ class Texto(val contenido: String) : Publicacion() {
   override fun espacioQueOcupa() = contenido.length
 }
 
-open class Video(segundos : Int) : Publicacion() {
-  lateinit var calidadDeVideo: CalidadVideo
+class Video(val calidadDeVideo: CalidadVideo) : Publicacion() {
+
+  //lateinit var calidadDeVideo: CalidadVideo
 
   override fun espacioQueOcupa() = calidadDeVideo.tamanioVideo()
 
+  /*
   fun setCalidad(tipoVideo : CalidadVideo){
     this.calidadDeVideo = tipoVideo
   }
+
+   */
 }
 
-class VideoSd() : Video(){
-
-}

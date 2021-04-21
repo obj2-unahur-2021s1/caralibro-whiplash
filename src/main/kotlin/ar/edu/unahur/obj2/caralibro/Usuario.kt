@@ -16,6 +16,10 @@ class Usuario {
   fun darMegusta(publicacion:Publicacion) =
     publicacion.recibeMeGusta(this)
 
+  fun puedeVerPublicacion(publicacion: Publicacion){
+    publicacion.permiso.permisoDeLaPublicacion(this)
+  }
+
 //serie de verificaciones , si la puede ver etc
 
 }
