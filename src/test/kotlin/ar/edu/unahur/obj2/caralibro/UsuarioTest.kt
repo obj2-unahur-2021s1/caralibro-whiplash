@@ -49,6 +49,7 @@ UsuarioTest : DescribeSpec({
         juana.espacioDePublicaciones().shouldBe(550548)
       }
     }
-
   }
+
+
 })
