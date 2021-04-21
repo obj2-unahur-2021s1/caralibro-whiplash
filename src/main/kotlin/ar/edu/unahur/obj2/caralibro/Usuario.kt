@@ -2,7 +2,7 @@ package ar.edu.unahur.obj2.caralibro
 
 class Usuario {
   val publicaciones = mutableListOf<Publicacion>()
-  val listaDeAmigos = mutableListOf<Usuario>()
+  var listaDeAmigos = mutableListOf<Usuario>()
 
 
   fun agregarPublicacion(publicacion: Publicacion) {
@@ -14,6 +14,9 @@ class Usuario {
   fun agregarAmigo(amigo: Usuario) = listaDeAmigos.add(amigo)
 
   fun darMegusta(publicacion:Publicacion) =
+    publicacion.recibeMeGusta(this)
+
+//serie de verificaciones , si la puede ver etc
 
 }
 

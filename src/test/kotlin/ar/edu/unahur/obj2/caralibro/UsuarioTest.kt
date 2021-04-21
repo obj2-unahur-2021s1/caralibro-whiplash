@@ -1,6 +1,10 @@
 package ar.edu.unahur.obj2.caralibro
 
+import io.kotest.assertions.throwables.shouldThrowAny
 import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.matchers.collections.shouldContain
+import io.kotest.matchers.collections.shouldContainAll
+import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.shouldBe
 
 class
@@ -9,10 +13,21 @@ UsuarioTest : DescribeSpec({
   describe("Caralibro") {
     val saludoCumpleanios = Texto("Felicidades Pepito, que los cumplas muy feliz")
     val fotoEnCuzco = Foto(768, 1024)
-    val videoEnElSur = Video(videoSd(150))
-    val videoEnElNorte = Video(videoHd720p(100))
-    val videoEnElOeste = Video(videoHd1080p(120))
+    val videoEnElSur = Video()
+    /*
+    videoEnElSur.setCalidad(videoSd)
+    videoEnElSur.setTiempo(seg)
+    videoEnElSur.espacioQueOcupa()
+    videoEnElSur.setCalidad(videoHd1080p)
+    videoEnElSur.espacioQueOcupa()
 
+     */
+    //videoEnElSur.setCalidad(videoSd(150))
+    val videoEnElNorte = Video()
+    //videoEnElNorte.setCalidad(videoHd720p(100))
+    val videoEnElOeste = Video()
+    //videoEnElOeste.setCalidad(videoHd1080p(120))
+    val fotoEnAconcagua = Foto(400,600)
 
     describe("Una publicación") {
       describe("de tipo foto") {
@@ -37,17 +52,49 @@ UsuarioTest : DescribeSpec({
         it("tipo de video hd1080p es el doble de 720p"){
           videoEnElOeste.espacioQueOcupa().shouldBe(720)
         }
+        it("cambia la calidad de video de una publicacion"){
+          videoEnElNorte.setCalidad(videoSd)
+        }
       }
 
     }
 
     describe("Un usuario") {
+
       it("puede calcular el espacio que ocupan sus publicaciones") {
         val juana = Usuario()
         juana.agregarPublicacion(fotoEnCuzco)
         juana.agregarPublicacion(saludoCumpleanios)
         juana.espacioDePublicaciones().shouldBe(550548)
       }
+
+    describe("Probamos como los usuarios dan like"){
+      val pepe = Usuario()
+      val jose = Usuario()
+      val luis = Usuario()
+      val juanito = Usuario()
+      pepe.agregarPublicacion(fotoEnAconcagua)
+      jose.darMegusta(fotoEnAconcagua)
+      luis.darMegusta(fotoEnAconcagua)
+
+      it("dos usuarios dan me gusta a publicacion"){
+        fotoEnAconcagua.cantidadDeMeGustaDeLaPublicacion.shouldBe(2)
+        fotoEnAconcagua.usuariosQueDieronLikeALaPublicacion.shouldContainExactly(jose,luis)
+      }
+
+      it("usuario no puede dar like a una publicacion porque ya dio like"){
+
+        shouldThrowAny { jose.darMegusta(fotoEnAconcagua) }
+
+      }
+
+    }
+
+
+
+
+
+
     }
   }
 
