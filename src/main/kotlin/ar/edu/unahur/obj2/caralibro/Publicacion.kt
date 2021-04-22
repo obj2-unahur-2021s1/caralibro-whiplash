@@ -4,10 +4,13 @@ import kotlin.math.ceil
 abstract class Publicacion {
   var cantidadDeMeGustaDeLaPublicacion : Int = 0
   var usuariosQueDieronLikeALaPublicacion = mutableListOf<Usuario>()
-  lateinit var permiso : Permiso
-
+  lateinit var permisoAsignado : Permiso
 
   abstract fun espacioQueOcupa(): Int
+
+  fun asignarPermiso(permiso: Permiso){
+    permisoAsignado = permiso
+  }
 
   fun recibeMeGusta(usuario : Usuario) {
 
@@ -15,7 +18,7 @@ abstract class Publicacion {
       throw Exception ("no se puede dar like dos veces a una misma Publicacion")
     }
     usuariosQueDieronLikeALaPublicacion.add(usuario)
-    cantidadDeMeGustaDeLaPublicacion ++
+    cantidadDeMeGustaDeLaPublicacion +=1
   }
 }
 
@@ -29,20 +32,13 @@ class Foto(val alto: Int, val ancho: Int) : Publicacion() {
 }
 
 class Texto(val contenido: String) : Publicacion() {
+
   override fun espacioQueOcupa() = contenido.length
 }
 
 class Video(val calidadDeVideo: CalidadVideo) : Publicacion() {
 
-  //lateinit var calidadDeVideo: CalidadVideo
-
   override fun espacioQueOcupa() = calidadDeVideo.tamanioVideo()
 
-  /*
-  fun setCalidad(tipoVideo : CalidadVideo){
-    this.calidadDeVideo = tipoVideo
-  }
-
-   */
 }
 

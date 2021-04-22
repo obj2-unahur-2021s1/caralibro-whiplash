@@ -7,11 +7,7 @@ abstract class Permiso() {
 class Publica() : Permiso(){
     override fun permisoDeLaPublicacion(usuario: Usuario) = true
 }
-
 class SoloAmigos() : Permiso(){
     override fun permisoDeLaPublicacion(usuario: Usuario) =
         usuario.listaDeAmigos
 }
-
-
-

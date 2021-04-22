@@ -17,17 +17,8 @@ UsuarioTest : DescribeSpec({
     val videoEnElSur = Video(videoSd(150))
     val videoEnElNorte = Video(videoHd720p(100))
     val videoEnElOeste = Video(videoHd1080p(120))
-    /*
-    videoEnElSur.setCalidad(videoSd)
-    videoEnElSur.setTiempo(seg)
-    videoEnElSur.espacioQueOcupa()
-    videoEnElSur.setCalidad(videoHd1080p)
-    videoEnElSur.espacioQueOcupa()
-     */
-    //videoEnElSur.setCalidad(videoSd(150))
-    //videoEnElNorte.setCalidad(videoHd720p(100))
-    //videoEnElOeste.setCalidad(videoHd1080p(120))
     val fotoEnAconcagua = Foto(400,600)
+
 
     describe("Una publicación") {
       describe("de tipo foto") {
@@ -94,10 +85,10 @@ UsuarioTest : DescribeSpec({
       it("usuario no puede dar like a una publicacion porque ya dio like"){
         shouldThrowAny { jose.darMegusta(fotoEnAconcagua) }
       }
-    }
 
+
+
+    }
     }
   }
-
-
 })

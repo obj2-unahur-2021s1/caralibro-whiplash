@@ -9,12 +9,16 @@ class Usuario {
     publicaciones.add(publicacion)
   }
 
-  fun espacioDePublicaciones() = publicaciones.sumBy { it.espacioQueOcupa() }
+  fun espacioDePublicaciones() =
+    publicaciones.sumBy { it.espacioQueOcupa() }
 
-  fun agregarAmigo(amigo: Usuario) = listaDeAmigos.add(amigo)
+  fun agregarAmigo(amigo: Usuario) {
+    listaDeAmigos.add(amigo)
+  }
 
-  fun darMegusta(publicacion:Publicacion) =
+  fun darMegusta(publicacion:Publicacion) {
     publicacion.recibeMeGusta(this)
+  }
 
   fun puedeVerPublicacion(publicacion: Publicacion){
     publicacion.permiso.permisoDeLaPublicacion(this)
