@@ -4,13 +4,17 @@ import kotlin.math.ceil
 abstract class Publicacion {
   var cantidadDeMeGustaDeLaPublicacion : Int = 0
   var usuariosQueDieronLikeALaPublicacion = mutableListOf<Usuario>()
-  lateinit var permisoAsignado : Permiso
+  //lateinit var permisoAsignado : Permiso
 
   abstract fun espacioQueOcupa(): Int
 
-  fun asignarPermiso(permiso: Permiso){
-    permisoAsignado = permiso
-  }
+   //falta implementar permisos
+  //fun asignarPermiso(permiso: Permiso){
+  //  permisoAsignado = permiso
+  //}
+
+  fun devolverCantidadDeMeGustaDeLaPublicacion() =
+    cantidadDeMeGustaDeLaPublicacion
 
   fun recibeMeGusta(usuario : Usuario) {
 

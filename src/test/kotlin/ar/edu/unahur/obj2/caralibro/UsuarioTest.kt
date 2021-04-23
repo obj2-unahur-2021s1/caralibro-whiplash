@@ -2,6 +2,7 @@ package ar.edu.unahur.obj2.caralibro
 
 import io.kotest.assertions.throwables.shouldThrowAny
 import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.collections.shouldContainAll
 import io.kotest.matchers.collections.shouldContainExactly
@@ -18,6 +19,13 @@ UsuarioTest : DescribeSpec({
     val videoEnElNorte = Video(videoHd720p(100))
     val videoEnElOeste = Video(videoHd1080p(120))
     val fotoEnAconcagua = Foto(400,600)
+    val pepe = Usuario()
+    val jose = Usuario()
+    val luis = Usuario()
+    val juanito = Usuario()
+    val oscarcito = Usuario()
+    val pilar = Usuario()
+    val juanita = Usuario()
 
 
     describe("Una publicación") {
@@ -69,10 +77,7 @@ UsuarioTest : DescribeSpec({
       }
 
     describe("Probamos como los usuarios dan like"){
-      val pepe = Usuario()
-      val jose = Usuario()
-      val luis = Usuario()
-      val juanito = Usuario()
+
       pepe.agregarPublicacion(fotoEnAconcagua)
       jose.darMegusta(fotoEnAconcagua)
       luis.darMegusta(fotoEnAconcagua)
@@ -89,6 +94,46 @@ UsuarioTest : DescribeSpec({
 
 
     }
+
+    describe("Probando funcion es mas amistoso que"){
+      jose.agregarAmigo(juanito)
+      jose.agregarAmigo(oscarcito)
+      jose.agregarAmigo(pilar)
+      pepe.agregarAmigo(jose)
+      pepe.agregarAmigo(juanita)
+      it("jose es mas amistoso que pepe"){
+        jose.esMasAmistosoQue(pepe).shouldBeTrue()
+      }
+
+      it("agregamos amigos a pepe y ahora es mas amistoso que jose"){
+        pepe.agregarAmigo(luis)
+        pepe.agregarAmigo(pilar)
+        pepe.esMasAmistosoQue(jose).shouldBeTrue()
+      }
+    }
+
+    describe("Probando funcion amigo mas popular con permisos en publico"){
+      jose.agregarAmigo(juanito)
+      jose.agregarAmigo(oscarcito)
+      jose.agregarAmigo(pilar)
+
+      juanito.agregarPublicacion(fotoNadando(768, 1024))
+      juanito.agregarPublicacion(fotoEnAconcagua)
+      oscarcito.agregarPublicacion(videoEnElSur)
+      oscarcito.agregarPublicacion(videoEnElOeste)
+      pilar.agregarPublicacion(fotoEnAconcagua)
+      pilar.agregarPublicacion(fotoEnCuzco)
+      pilar.agregarPublicacion(fotoEnEsquel)
+
+
+
+
+
+      it("")
+
+
+    }
+
     }
   }
 })

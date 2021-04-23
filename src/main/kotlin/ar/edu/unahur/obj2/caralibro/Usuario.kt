@@ -20,13 +20,28 @@ class Usuario {
     publicacion.recibeMeGusta(this)
   }
 
+  fun cantidadDeAmigos() =
+    listaDeAmigos.size
+
+  fun esMasAmistosoQue(usuario : Usuario ) =
+    this.cantidadDeAmigos() > usuario.cantidadDeAmigos()
+
+  fun cantidadTotalDeMeGusta()=
+    publicaciones.sumBy{ it.devolverCantidadDeMeGustaDeLaPublicacion()}
+
+  fun amigoMasPopular()=
+    listaDeAmigos.maxByOrNull{ it.cantidadTotalDeMeGusta() }
+
+  /*
   fun puedeVerPublicacion(publicacion: Publicacion){
     publicacion.permiso.permisoDeLaPublicacion(this)
   }
-
+  */
 //serie de verificaciones , si la puede ver etc
 
 }
+
+
 
 
 
