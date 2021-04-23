@@ -1,17 +1,35 @@
 package ar.edu.unahur.obj2.caralibro
 import kotlin.math.ceil
 
-abstract class Publicacion {
+abstract class Publicacion(var permiso:String) {
   var cantidadDeMeGustaDeLaPublicacion : Int = 0
   var usuariosQueDieronLikeALaPublicacion = mutableListOf<Usuario>()
-  //lateinit var permisoAsignado : Permiso
+
+  fun permisos(usuario:Usuario,amigo : Usuario): Boolean {
+    return when (permiso) {
+      "Solo amigos" -> {
+        amigo.listaDeAmigos.contains(usuario)
+      }
+      "Privado con lista de permitidos" -> {
+        amigo.listaDePermitidos.contains(usuario)
+      }
+      "Publico con lista de excluidos" -> {
+        !amigo.listaDeExcluidos.contains(usuario)
+      }
+      else -> {
+        return true
+    }
+  }
+  }
+
+  fun asignarPermiso(permisoAsignado : String){
+    permiso = permisoAsignado
+  }
+
+
+  fun permisoDeLaPublicacion() = permiso
 
   abstract fun espacioQueOcupa(): Int
-
-   //falta implementar permisos
-  //fun asignarPermiso(permiso: Permiso){
-  //  permisoAsignado = permiso
-  //}
 
   fun devolverCantidadDeMeGustaDeLaPublicacion() =
     cantidadDeMeGustaDeLaPublicacion

@@ -3,10 +3,13 @@ package ar.edu.unahur.obj2.caralibro
 class Usuario {
   val publicaciones = mutableListOf<Publicacion>()
   var listaDeAmigos = mutableListOf<Usuario>()
+  var listaDePermitidos = mutableListOf<Usuario>()
+  var listaDeExcluidos = mutableListOf<Usuario>()
 
 
-  fun agregarPublicacion(publicacion: Publicacion) {
+  fun agregarPublicacion(publicacion: Publicacion, permiso:String) {
     publicaciones.add(publicacion)
+    publicacion.asignarPermiso(permiso)
   }
 
   fun espacioDePublicaciones() =
@@ -32,11 +35,11 @@ class Usuario {
   fun amigoMasPopular()=
     listaDeAmigos.maxByOrNull{ it.cantidadTotalDeMeGusta() }
 
-  /*
-  fun puedeVerPublicacion(publicacion: Publicacion){
-    publicacion.permiso.permisoDeLaPublicacion(this)
+
+  fun puedeVerPublicacion(publicacion: Publicacion, amigo: Usuario){
+    publicacion.permisos(this,amigo)
   }
-  */
+
 //serie de verificaciones , si la puede ver etc
 
 }

@@ -7,6 +7,7 @@ import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.collections.shouldContainAll
 import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.shouldBe
+import org.jetbrains.kotlin.daemon.common.configureDaemonJVMOptions
 
 class
 
@@ -14,7 +15,7 @@ UsuarioTest : DescribeSpec({
   describe("Caralibro") {
     val saludoCumpleanios = Texto("Felicidades Pepito, que los cumplas muy feliz")
     val fotoEnCuzco = Foto(768, 1024)
-    val fotoEnEsquel = Foto(800,1000)
+    val fotoEnEsquel = Foto(800,1000,)
     val videoEnElSur = Video(videoSd(150))
     val videoEnElNorte = Video(videoHd720p(100))
     val videoEnElOeste = Video(videoHd1080p(120))
@@ -112,26 +113,33 @@ UsuarioTest : DescribeSpec({
       }
     }
 
+    /*
     describe("Probando funcion amigo mas popular con permisos en publico"){
       jose.agregarAmigo(juanito)
       jose.agregarAmigo(oscarcito)
       jose.agregarAmigo(pilar)
 
-      juanito.agregarPublicacion(fotoNadando(768, 1024))
+      juanito.agregarPublicacion(val fotoNadando = Foto(768, 1024, solo amigos))
       juanito.agregarPublicacion(fotoEnAconcagua)
       oscarcito.agregarPublicacion(videoEnElSur)
       oscarcito.agregarPublicacion(videoEnElOeste)
       pilar.agregarPublicacion(fotoEnAconcagua)
       pilar.agregarPublicacion(fotoEnCuzco)
       pilar.agregarPublicacion(fotoEnEsquel)
+      */
 
+    describe(" requerimiento 4 , ver si un usuario puede ver cierta publicacion"){
+      /*
+      juanito.puedeVer(publicacion) = true/false
 
+      publicacion.quePermisoTengo? = algo
+      publico = me podes ver
+      soloAmigos = fijarmeenlistadel(usuario) si esta juanito
+      listaDePermitidos = me fijo los usuarios que previamente configuré
+      publico con excluidos = la pueden ver todos , menos los que estan aca
+ */
 
-
-
-      it("")
-
-
+/*
     }
 
     }
