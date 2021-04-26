@@ -7,9 +7,10 @@ class Usuario {
   var listaDeExcluidos = mutableListOf<Usuario>()
 
 
-  fun agregarPublicacion(publicacion: Publicacion, permiso:String) {
+  fun agregarPublicacion(publicacion: Publicacion,permiso:String) {
     publicaciones.add(publicacion)
     publicacion.asignarPermiso(permiso)
+    publicacion.asignarCreador(this)
   }
 
   fun espacioDePublicaciones() =
@@ -35,12 +36,10 @@ class Usuario {
   fun amigoMasPopular()=
     listaDeAmigos.maxByOrNull{ it.cantidadTotalDeMeGusta() }
 
+  fun puedeVerPublicacion(publicacion: Publicacion, amigo: Usuario) : Boolean =
+    publicacion.creador() == this || publicacion.puedeVerPublicacionDe(this,amigo)
 
-  fun puedeVerPublicacion(publicacion: Publicacion, amigo: Usuario){
-    publicacion.permisos(this,amigo)
-  }
 
-//serie de verificaciones , si la puede ver etc
 
 }
 

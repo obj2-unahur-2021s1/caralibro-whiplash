@@ -2,12 +2,10 @@ package ar.edu.unahur.obj2.caralibro
 
 import io.kotest.assertions.throwables.shouldThrowAny
 import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
-import io.kotest.matchers.collections.shouldContain
-import io.kotest.matchers.collections.shouldContainAll
 import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.shouldBe
-import org.jetbrains.kotlin.daemon.common.configureDaemonJVMOptions
 
 class
 
@@ -70,16 +68,16 @@ UsuarioTest : DescribeSpec({
 
       it("puede calcular el espacio que ocupan sus publicaciones") {
         val juana = Usuario()
-        juana.agregarPublicacion(fotoEnCuzco)
-        juana.agregarPublicacion(fotoEnAconcagua)
-        juana.agregarPublicacion(fotoEnEsquel)
-        juana.agregarPublicacion(saludoCumpleanios)
+        juana.agregarPublicacion(fotoEnCuzco,"publico")
+        juana.agregarPublicacion(fotoEnAconcagua,"publico")
+        juana.agregarPublicacion(fotoEnEsquel,"publico")
+        juana.agregarPublicacion(saludoCumpleanios,"publico")
         juana.espacioDePublicaciones().shouldBe(1278548)
       }
 
     describe("Probamos como los usuarios dan like"){
 
-      pepe.agregarPublicacion(fotoEnAconcagua)
+      pepe.agregarPublicacion(fotoEnAconcagua, "publico")
       jose.darMegusta(fotoEnAconcagua)
       luis.darMegusta(fotoEnAconcagua)
 
@@ -91,8 +89,6 @@ UsuarioTest : DescribeSpec({
       it("usuario no puede dar like a una publicacion porque ya dio like"){
         shouldThrowAny { jose.darMegusta(fotoEnAconcagua) }
       }
-
-
 
     }
 
@@ -113,34 +109,43 @@ UsuarioTest : DescribeSpec({
       }
     }
 
-    /*
-    describe("Probando funcion amigo mas popular con permisos en publico"){
-      jose.agregarAmigo(juanito)
-      jose.agregarAmigo(oscarcito)
-      jose.agregarAmigo(pilar)
 
-      juanito.agregarPublicacion(val fotoNadando = Foto(768, 1024, solo amigos))
-      juanito.agregarPublicacion(fotoEnAconcagua)
-      oscarcito.agregarPublicacion(videoEnElSur)
-      oscarcito.agregarPublicacion(videoEnElOeste)
-      pilar.agregarPublicacion(fotoEnAconcagua)
-      pilar.agregarPublicacion(fotoEnCuzco)
-      pilar.agregarPublicacion(fotoEnEsquel)
-      */
+    describe("Probando funcion amigo mas popular ") {
+      it("con permisos en publico"){
+        jose.agregarAmigo(juanito)
+        jose.agregarAmigo(oscarcito)
+        jose.agregarAmigo(pilar)
+
+        juanito.agregarPublicacion(fotoEnAconcagua, "publico")
+        oscarcito.agregarPublicacion(videoEnElSur, "publico")
+        oscarcito.agregarPublicacion(videoEnElOeste, "publico")
+        pilar.agregarPublicacion(fotoEnAconcagua, "publico")
+        pilar.agregarPublicacion(fotoEnCuzco, "publico")
+        pilar.agregarPublicacion(fotoEnEsquel, "publico")
+
+        pilar.darMegusta(fotoEnAconcagua)
+        pilar.darMegusta(videoEnElSur)
+        juanito.darMegusta(fotoEnEsquel)
+
+        jose.amigoMasPopular().shouldBe(pilar)
+      }
+    }
 
     describe(" requerimiento 4 , ver si un usuario puede ver cierta publicacion"){
-      /*
-      juanito.puedeVer(publicacion) = true/false
+      it("pilar/pepe pueden ver las publicaciones de juanito pero oscarcito no"){
 
-      publicacion.quePermisoTengo? = algo
-      publico = me podes ver
-      soloAmigos = fijarmeenlistadel(usuario) si esta juanito
-      listaDePermitidos = me fijo los usuarios que previamente configuré
-      publico con excluidos = la pueden ver todos , menos los que estan aca
- */
+        juanito.agregarPublicacion(fotoEnCuzco,"solo amigos")
+        juanito.agregarPublicacion(videoEnElNorte,"solo amigos")
+        juanito.agregarAmigo(pilar)
+        juanito.agregarAmigo(pepe)
+        pilar.puedeVerPublicacion(fotoEnCuzco,juanito).shouldBeTrue()
+        oscarcito.puedeVerPublicacion(fotoEnCuzco,juanito).shouldBeFalse()
+        pepe.puedeVerPublicacion(videoEnElNorte, juanito).shouldBeTrue()
+        juanito.puedeVerPublicacion(videoEnElNorte,juanito).shouldBeTrue()
+      }
 
-/*
-    }
+
+      }
 
     }
   }

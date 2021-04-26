@@ -1,19 +1,25 @@
 package ar.edu.unahur.obj2.caralibro
 import kotlin.math.ceil
 
-abstract class Publicacion(var permiso:String) {
+abstract class Publicacion() {
+  lateinit var permiso:String
+  lateinit var creadorDeLaPublicacion : Usuario
   var cantidadDeMeGustaDeLaPublicacion : Int = 0
   var usuariosQueDieronLikeALaPublicacion = mutableListOf<Usuario>()
 
-  fun permisos(usuario:Usuario,amigo : Usuario): Boolean {
+  fun asignarPermiso(permisoAsignado : String){
+    permiso = permisoAsignado
+  }
+
+  fun puedeVerPublicacionDe(usuario:Usuario,amigo : Usuario): Boolean {
     return when (permiso) {
-      "Solo amigos" -> {
+      "solo amigos" -> {
         amigo.listaDeAmigos.contains(usuario)
       }
-      "Privado con lista de permitidos" -> {
+      "privado con lista de permitidos" -> {
         amigo.listaDePermitidos.contains(usuario)
       }
-      "Publico con lista de excluidos" -> {
+      "publico con lista de excluidos" -> {
         !amigo.listaDeExcluidos.contains(usuario)
       }
       else -> {
@@ -22,10 +28,11 @@ abstract class Publicacion(var permiso:String) {
   }
   }
 
-  fun asignarPermiso(permisoAsignado : String){
-    permiso = permisoAsignado
-  }
 
+  fun asignarCreador(usuario : Usuario) {
+    creadorDeLaPublicacion = usuario
+  }
+  fun creador() = creadorDeLaPublicacion
 
   fun permisoDeLaPublicacion() = permiso
 
