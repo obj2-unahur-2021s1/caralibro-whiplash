@@ -38,6 +38,12 @@ UsuarioTest : DescribeSpec({
         it("ocupa ancho * alto * compresion bytes de foto en aconcagua"){
           fotoEnAconcagua.espacioQueOcupa().shouldBe(168000)
         }
+        it("cambiamos el valor de compresion a 0.2 y cambia el valor de las 3 anteriores"){
+          FactorDeCompresion.cambiarFactor(0.2)
+          fotoEnCuzco.espacioQueOcupa().shouldBe(157287)
+          fotoEnEsquel.espacioQueOcupa().shouldBe(160000)
+          fotoEnAconcagua.espacioQueOcupa().shouldBe(48000)
+        }
 
       }
 
@@ -143,7 +149,6 @@ UsuarioTest : DescribeSpec({
         pepe.puedeVerPublicacion(videoEnElNorte, juanito).shouldBeTrue()
         juanito.puedeVerPublicacion(videoEnElNorte,juanito).shouldBeTrue()
       }
-
 
       }
 

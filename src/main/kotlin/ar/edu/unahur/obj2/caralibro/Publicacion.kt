@@ -51,13 +51,18 @@ abstract class Publicacion() {
   }
 }
 
-class Foto(val alto: Int, val ancho: Int) : Publicacion() {
-  var factorDeCompresion = 0.7
-  override fun espacioQueOcupa() = ceil(alto * ancho * factorDeCompresion).toInt()
-
-  fun cambiarFactorDeCompresion(valorACambiar : Double){
-    this.factorDeCompresion = valorACambiar
+object FactorDeCompresion{
+  var factorActual = 0.7
+  fun cambiarFactor(valorNuevo : Double){
+    factorActual = valorNuevo
   }
+
+  fun valorDeCompresion() = factorActual
+}
+
+class Foto(val alto: Int, val ancho: Int) : Publicacion() {
+  var factorDeCompresion = FactorDeCompresion.valorDeCompresion()
+  override fun espacioQueOcupa() = ceil(alto * ancho * FactorDeCompresion.valorDeCompresion()).toInt()
 }
 
 class Texto(val contenido: String) : Publicacion() {
@@ -66,7 +71,6 @@ class Texto(val contenido: String) : Publicacion() {
 }
 
 class Video(val calidadDeVideo: CalidadVideo) : Publicacion() {
-
   override fun espacioQueOcupa() = calidadDeVideo.tamanioVideo()
 
 }
