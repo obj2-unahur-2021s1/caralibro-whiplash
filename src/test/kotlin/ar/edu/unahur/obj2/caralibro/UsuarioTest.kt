@@ -78,7 +78,7 @@ UsuarioTest : DescribeSpec({
         juana.agregarPublicacion(fotoEnAconcagua,"publico")
         juana.agregarPublicacion(fotoEnEsquel,"publico")
         juana.agregarPublicacion(saludoCumpleanios,"publico")
-        juana.espacioDePublicaciones().shouldBe(1278548)
+        juana.espacioDePublicaciones().shouldBe(365332)
       }
 
     describe("Probamos como los usuarios dan like"){
@@ -151,6 +151,22 @@ UsuarioTest : DescribeSpec({
       }
 
       }
+
+    describe ( "requerimiento 7 - usuario stalker"){
+      it ("usuario oscarcito stalkea a juanito"){
+        juanito.agregarPublicacion(fotoEnCuzco,"solo amigos")
+        juanito.agregarPublicacion(videoEnElNorte,"solo amigos")
+        juanito.agregarPublicacion(videoEnElOeste,"solo amigos")
+        juanito.agregarAmigo(oscarcito)
+        oscarcito.darMegusta(fotoEnCuzco)
+        oscarcito.darMegusta(videoEnElOeste)
+        oscarcito.darMegusta(videoEnElNorte)
+
+        juanito.usuarioMeStalkea(oscarcito).shouldBeTrue()
+
+      }
+
+    }
 
     }
   }

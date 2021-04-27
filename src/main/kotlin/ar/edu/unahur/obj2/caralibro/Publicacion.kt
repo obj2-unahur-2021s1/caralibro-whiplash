@@ -7,6 +7,8 @@ abstract class Publicacion() {
   var cantidadDeMeGustaDeLaPublicacion : Int = 0
   var usuariosQueDieronLikeALaPublicacion = mutableListOf<Usuario>()
 
+  fun retornarUsuariosQueDieronLike() = usuariosQueDieronLikeALaPublicacion
+
   fun asignarPermiso(permisoAsignado : String){
     permiso = permisoAsignado
   }

@@ -39,8 +39,8 @@ class Usuario {
   fun puedeVerPublicacion(publicacion: Publicacion, amigo: Usuario) : Boolean =
     publicacion.creador() == this || publicacion.puedeVerPublicacionDe(this,amigo)
 
-
-
+  fun usuarioMeStalkea(usuario: Usuario) =
+    publicaciones.count{it.retornarUsuariosQueDieronLike().contains(usuario) } > (publicaciones.size * 0.9)
 }
 
 
